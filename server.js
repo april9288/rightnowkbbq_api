@@ -14,17 +14,25 @@ app.get('/', (req, res)=> {
 	res.send(response);
 })
 
-app.post('/yelp', async (req, res)=> {
-	console.log("looking up")
-	const yelpResult = await yelpSearch.search({
-          term: "koreanbbq",
-          latitude: 34,
-          longitude: -118,
-          categories: "korean",
-          open_now: true
-        })      
-    res.send(yelpResult.jsonBody.businesses)
-    console.log("Done")
+app.get('/yelp', async (req, res)=> {
+	let latitude = req.query.lat
+	let longitude = req.query.lon
+	try{
+		const yelpResult = await yelpSearch.search({
+	          term: "koreanbbq",
+	          latitude,
+	          longitude,
+	          categories: "korean",
+	          open_now: true
+	        })     
+		if (yelpResult.statusCode === 400) {
+			res.status(400).send(yelpResult.message)
+		} else if (yelpResult.statusCode === 200) {
+			res.status(200).send(yelpResult.jsonBody.businesses)
+		}
+	}catch(e){
+		res.status(400).send("Server Error")
+	}
 })
  
 app.listen(process.env.PORT || 3001, () => {
