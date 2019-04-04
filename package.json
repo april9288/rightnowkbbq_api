@@ -1,0 +1,24 @@
+{
+  "name": "rightnowkbbq_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "env-cmd ./config/dev.env nodemon server.js"
+  },
+  "author": "James Jongho Kim",
+  "license": "ISC",
+  "engines": {
+    "node": "10.13.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^8.0.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "yelp-fusion": "^2.2.1"
+  }
+}
