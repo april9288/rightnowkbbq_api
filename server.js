@@ -6,12 +6,22 @@ const app = express();
 const yelp = require('yelp-fusion');
 const yelpSearch = yelp.client(process.env.API_KEY_YELP);
 
+const sample = require('./sample.js')
+
 // app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res)=> {
 	let response = "korean bbq app";
 	res.send(response);
+})
+
+app.get('/mock', (req, res) => {
+	try{
+		res.send(sample)
+	}catch(e){
+		res.status(500).send("Server Error")
+	}
 })
 
 app.get('/yelp', async (req, res)=> {
